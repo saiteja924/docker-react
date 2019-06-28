@@ -1,0 +1,14 @@
+#letting travis know we need super user permission to build our project
+sudo: required
+
+#we are making sure that travis CI know that we need docker CLI pre installed.
+services: 
+    - docker
+
+#before_install contains series of commands that get executed before our tests are ran    
+before_install:
+    - docker build -t sracharla/docker-react -f Dockerfile.dev .
+    
+#series of commands that run when our tests are to be executed.
+script:
+    - docker run sracharla/docker-react npm run test -- --coverage
